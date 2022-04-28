@@ -12,8 +12,11 @@
               <div class="col-md-12 text-left">
                 <div class="form-group">
                   <label class="control-label"> Category </label>
-                  <select id="category" name="category" class="form-control"
-                  formControlName="category"
+                  <select
+                    id="category"
+                    name="category"
+                    class="form-control"
+                    formControlName="category"
                     [ngClass]="{
                       'is-invalid': submitted && myForm['category'].errors
                     }"
@@ -61,13 +64,13 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-danger"
+              <app-button
+                buttonColors="btn-danger"
+                text="Close"
                 (click)="isClickSaveOrClose(false)"
               >
-                Close
-              </button>
+              </app-button>
+
               <button type="submit" class="btn btn-info">Save</button>
             </div>
           </form>

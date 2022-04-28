@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Category } from './models/category';
 import { Options } from './models/options';
 import { Order } from './models/order';
+import { ResponseData } from './models/response';
 import { CategoryService } from './service/category.service';
 import { OrderService } from './service/order.service';
 import { getCategory } from './store/category.action';
@@ -23,12 +24,18 @@ export class AppComponent implements OnInit {
     size: 5,
   };
 
-  orders: Order[] = [];
+  // orders: Order[] = [];
   category: Category[] = [];
+  responseData: ResponseData = {
+    orders: [],
+    totalItems: 0,
+  };
 
-  constructor(private orderService: OrderService, 
-     private categoryService: CategoryService,
-     private store: Store<{ category: Category[] }>) {}
+  constructor(
+    private orderService: OrderService,
+    private categoryService: CategoryService,
+    private store: Store<{ category: Category[] }>
+  ) {}
 
   showModal: boolean = false;
 
@@ -41,11 +48,10 @@ export class AppComponent implements OnInit {
     this.getCategory();
   }
 
-
   getOrders(): void {
     this.orderService.getOrders(this.options).subscribe((data) => {
-      this.orders = data.orders;
-    });    
+      this.responseData = data;
+    });
   }
 
   getCategory() {
@@ -64,10 +70,15 @@ export class AppComponent implements OnInit {
     this.getOrders();
   }
 
+  get numbers(): number[] {
+    const limit = Math.ceil(this.responseData.totalItems / this.options.size);
+    return Array.from({ length: limit }, (_, i) => i + 1);
+  }
+
   size(size: number) {
     this.options.size = size;
     this.options.page = 1;
-    debugger
+    debugger;
     this.getOrders();
   }
 
@@ -75,8 +86,9 @@ export class AppComponent implements OnInit {
     return this.options.orderBy === order;
   }
 
-  openModal(isOk: boolean) {
-    this.showModal = isOk;
+  openModal() {
+    alert('xx');
+    this.showModal = true;
   }
 
   isProceed(isSave: boolean) {
@@ -84,6 +96,21 @@ export class AppComponent implements OnInit {
     if (isSave) {
       this.getOrders();
     }
+  }
+
+  next() {
+    this.options.page++;
+    this.getOrders();
+  }
+
+  prev() {
+    this.options.page--;
+    this.getOrders();
+  }
+
+  to(page: number) {
+    this.options.page = page;
+    this.getOrders();
   }
 }
 // ng serve --port 8081

@@ -3,21 +3,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
+  @Output() actionEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() actionEvent: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
-    
-  @Input() isOk: boolean = true; 
-  constructor() { }
+  @Input() text: string = '';
 
-  ngOnInit(): void {
-  }
+  @Input() btnColors: string = 'btn-primary';
+  constructor() {}
 
-  action() {
-    this.actionEvent.emit(this.isOk);
-  }
-
+  ngOnInit(): void {}
 }

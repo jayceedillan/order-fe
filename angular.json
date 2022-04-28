@@ -33,6 +33,7 @@
             "styles": [
               "src/assets/css/main.css",
               "src/assets/css/bootstrap.css",
+              "src/assets/css/pagination.css",
               "src/assets/css/nucleo-icons.css",
               "src/styles.scss"
             ],
