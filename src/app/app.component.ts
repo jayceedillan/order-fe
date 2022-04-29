@@ -93,24 +93,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  next() {
-    this.options.page++;
-    this.getOrders();
-  }
-
-  prev() {
-    this.options.page--;
-    this.getOrders();
-  }
-
-  to(page: number) {
-    this.options.page = page;
-    this.getOrders();
-  }
-
-  test(options: Options) {
+  pagination(options: Options) {
     this.options = options;
     this.getOrders();
   }
 }
+
 // ng serve --port 8081
