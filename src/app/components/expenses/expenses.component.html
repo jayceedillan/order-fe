@@ -8,6 +8,7 @@
       >
         <div class="card-body">
           <form [formGroup]="form" (ngSubmit)="submit()">
+            
             <div class="row">
               <div class="col-md-12 text-left">
                 <div class="form-group">
@@ -16,6 +17,7 @@
                     id="category"
                     name="category"
                     class="form-control"
+                    [(ngModel)]="order.category.id"
                     formControlName="category"
                     [ngClass]="{
                       'is-invalid': submitted && myForm['category'].errors
@@ -40,6 +42,7 @@
                     placeholder="Description"
                     class="form-control"
                     formControlName="description"
+                    [(ngModel)]="order.description"
                     [ngClass]="{
                       'is-invalid': submitted && myForm['description'].errors
                     }"
@@ -56,6 +59,7 @@
                     type="number"
                     class="form-control"
                     formControlName="price"
+                    [(ngModel)]="order.price"
                     [ngClass]="{
                       'is-invalid': submitted && myForm['price'].errors
                     }"

@@ -24,11 +24,22 @@ export class AppComponent implements OnInit {
     size: 5,
   };
 
-  // orders: Order[] = [];
-  category: Category[] = [];
+  categories: Category[] = [];
+  category: Category = {
+    id: 0,
+    name: '',
+  };
   responseData: ResponseData = {
     orders: [],
     totalItems: 0,
+  };
+
+  order: Order = {
+    id: 0,
+      description: '',
+      price: 0,
+      category: this.category,
+      dateCreated: new Date(),
   };
 
   constructor(
@@ -56,18 +67,32 @@ export class AppComponent implements OnInit {
 
   getCategory() {
     this.categoryService.getCategory().subscribe((data) => {
-      this.category = data;
-      this.store.dispatch(getCategory({ category: this.category }));
+      this.categories = data;
+      this.store.dispatch(getCategory({ category: this.categories }));
     });
   }
 
-  order(by: string) {
+  orderBy(by: string) {
     if (this.options.orderBy === by) {
       this.options.orderDir = this.options.orderDir === 'ASC' ? 'DESC' : 'ASC';
     } else {
       this.options.orderBy = by;
     }
     this.getOrders();
+  }
+
+  deleteOrder(id: number): void {
+    if (confirm('Do you want to delete?') == true) {
+      this.orderService.deleteOrder(id).subscribe(() => {
+        this.getOrders();
+      });
+    } 
+  }
+
+  addOrUpdate(order: Order | undefined): void {
+    debugger
+    this.order = order!;
+    this.showModal = true;
   }
 
   get numbers(): number[] {

@@ -5,7 +5,7 @@
         <app-button
           buttonColors="btn-primary"
           text="Expenses"
-          (click)="showModal = true"
+          (click)="addOrUpdate(undefined)"
         >
         </app-button>
       </div>
@@ -15,23 +15,24 @@
           <table class="table" style="table-layout: fixed">
             <thead>
               <tr>
-                <th (click)="order('id')" role="button" style="width: 10%">
+                <th (click)="orderBy('id')" role="button" style="width: 10%">
                   # <span *ngIf="by('id')">{{ direction }}</span>
                 </th>
-                <th (click)="order('category')" role="button">
+                <th (click)="orderBy('category')" role="button">
                   Name <span *ngIf="by('category')">{{ direction }}</span>
                 </th>
-                <th (click)="order('description')" role="button">
+                <th (click)="orderBy('description')" role="button">
                   Description
                   <span *ngIf="by('description')">{{ direction }}</span>
                 </th>
-                <th (click)="order('price')" role="button" style="width: 15%">
+                <th (click)="orderBy('price')" role="button" style="width: 15%">
                   Price <span *ngIf="by('price')">{{ direction }}</span>
                 </th>
-                <th (click)="order('dateCreated')" role="button">
+                <th (click)="orderBy('dateCreated')" role="button">
                   Date Created
                   <span *ngIf="by('dateCreated')">{{ direction }}</span>
                 </th>
+                <th>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -41,13 +42,31 @@
                 <td>{{ order.description }}</td>
                 <td>{{ order.price }}</td>
                 <td>{{ order.dateCreated }}</td>
+                <td class="td-actions text-right">
+                  <button
+                    type="button"
+                    class="btn btn-icon btn-fab btn-success btn-sm mr-2"
+                    (click)="addOrUpdate(order)"
+                  >
+                    <i class="tim-icons icon-pencil"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-icon btn-fab btn-danger btn-sm "
+                    (click)="deleteOrder(order.id)"
+                  >
+                    <i class="tim-icons icon-simple-remove"></i>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+  
       <app-expenses
         *ngIf="showModal"
+        [data]="order"
         (modalIsSave)="isProceed($event)"
       ></app-expenses>
 

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Category } from 'src/app/models/category';
+import { Order } from 'src/app/models/order';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -11,13 +12,34 @@ import { OrderService } from 'src/app/service/order.service';
 })
 export class ExpensesComponent implements OnInit {
 
+  @Output() modalIsSave: EventEmitter<boolean> = new EventEmitter<boolean>();
+  category: Category = {
+    id: 0,
+    name: ''
+  };
+
+  @Input() data: Order = { 
+    id: 0,
+      description: '',
+      price: 0,
+      category: this.category,
+      dateCreated: new Date(),
+  };
+
+  order: Order = {
+    id: 0,
+      description: '',
+      price: 0,
+      category: this.category,
+      dateCreated: new Date(),
+  };
+
   form: FormGroup = new FormGroup({
     description: new FormControl(''),
     price: new FormControl(''),
     category: new FormControl(''),
   });
   
-  @Output() modalIsSave: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(
     private orderService: OrderService,
     private formBuilder: FormBuilder,
@@ -31,14 +53,13 @@ export class ExpensesComponent implements OnInit {
    }
 
    categories: Category[] = [];
-   category: Category = {
-     id:0,
-     name:'',
-   }
 
    submitted: boolean = false;
      
   ngOnInit(): void {
+    const cloneData  = Object.assign(this.order, this.data);
+    debugger
+    this.order =  cloneData ?? this.order;
     this.store.select('category').subscribe((x) => {
       this.categories = x;
     });
@@ -56,10 +77,7 @@ export class ExpensesComponent implements OnInit {
     this.submitted = true;
   
     if (!this.form.invalid) {
-      
-      const category = this.categories.find( x => x.id === Number(this.form.value.category));
-      this.form.value.category = category;
-      this.orderService.addOrder(this.form.value).subscribe(
+      this.orderService.addOrder(this.order).subscribe(
         () => {
           this.modalIsSave.emit(true);
         },

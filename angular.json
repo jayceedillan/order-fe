@@ -17,6 +17,10 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {}
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -31,10 +35,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/main.css",
               "src/assets/css/bootstrap.css",
-              "src/assets/css/pagination.css",
+              "src/assets/css/main.css",
               "src/assets/css/nucleo-icons.css",
+              "src/assets/css/pagination.css",
               "src/styles.scss"
             ],
             "scripts": []

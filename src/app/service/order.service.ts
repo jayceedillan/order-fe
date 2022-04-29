@@ -35,4 +35,10 @@ export class OrderService {
       order
     );
   }
+
+  deleteOrder(id: number): Observable<any> {
+    return this.http.delete<Order>(
+      `${this.apiUrl}/${id}`
+    );
+  }
 }
