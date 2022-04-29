@@ -18,6 +18,5 @@ export class DropdownComponent implements OnInit {
   selectedChanged(event: any) {
     const id = Number(event.target.value);
     this.value.emit(id);
-
   }
 }

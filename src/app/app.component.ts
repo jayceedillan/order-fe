@@ -86,11 +86,6 @@ export class AppComponent implements OnInit {
     return this.options.orderBy === order;
   }
 
-  openModal() {
-    alert('xx');
-    this.showModal = true;
-  }
-
   isProceed(isSave: boolean) {
     this.showModal = false;
     if (isSave) {
@@ -110,6 +105,11 @@ export class AppComponent implements OnInit {
 
   to(page: number) {
     this.options.page = page;
+    this.getOrders();
+  }
+
+  test(options: Options) {
+    this.options = options;
     this.getOrders();
   }
 }

@@ -50,38 +50,12 @@
         *ngIf="showModal"
         (modalIsSave)="isProceed($event)"
       ></app-expenses>
-      
-      <nav *ngIf="numbers.length > 1">
-        <ul class="pagination justify-content-center">
-          <li
-            id="prev"
-            class="page-item"
-            [ngClass]="{ disabled: options.page === 1 }"
-          >
-            <a class="page-link" href="#" (click)="prev()">Previous</a>
-          </li>
-          <ng-container *ngIf="responseData.orders">
-            <li
-              class="page-item"
-              *ngFor="let number of numbers"
-              [ngClass]="{ active: options.page === number }"
-            >
-              <a class="page-link" href="#" (click)="to(number)">{{
-                number
-              }}</a>
-            </li>
-          </ng-container>
-          <li
-            id="next"
-            class="page-item"
-            [ngClass]="{ disabled: options.page === numbers.length }"
-          >
-            <a class="page-link" href="#" (click)="next()" disabled="true"
-              >Next</a
-            >
-          </li>
-        </ul>
-      </nav>
+
+      <app-pagination
+        (actionEvent)="test($event)"
+        [numbers]="numbers"
+        [orders]="responseData.orders"
+      ></app-pagination>
     </div>
   </div>
 </div>

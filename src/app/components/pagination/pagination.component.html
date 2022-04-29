@@ -1,0 +1,32 @@
+
+<nav *ngIf="numbers.length > 1">
+      <ul class="pagination justify-content-center">
+        <li
+          id="prev"
+          class="page-item"
+          [ngClass]="{ disabled: options.page === 1 }"
+        >
+          <a class="page-link"  (click)="prev()">Previous</a>
+        </li>
+        <ng-container *ngIf="orders">
+          <li
+            class="page-item"
+            *ngFor="let number of numbers"
+            [ngClass]="{ active: options.page === number }"
+          >
+            <a class="page-link"  (click)="to(number)">{{
+              number
+            }}</a>
+          </li>
+        </ng-container>
+        <li
+          id="next"
+          class="page-item"
+          [ngClass]="{ disabled: options.page === numbers.length }"
+        >
+          <a class="page-link"  (click)="next()" disabled="true"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>

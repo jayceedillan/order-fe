@@ -10,6 +10,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { StoreModule } from '@ngrx/store';
 import { categoryReducer } from './store/category.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DropdownComponent,
     ExpensesComponent,
     ButtonComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
